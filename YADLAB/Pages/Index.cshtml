@@ -1,10 +1,75 @@
 ﻿@page
 @model IndexModel
+@using YADLAB.Models
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Главная";
+    var pc = Model.Computer;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Alim Yanglichev</h1>
+    <p>Лабораторная работа №1. Создание первого веб-приложения на платформе ASP.NET Core.</p>
 </div>
+
+<h2>Данные о компьютере</h2>
+<table class="table table-bordered">
+    <tr><th>Имя</th><td>@pc.Name</td></tr>
+    <tr><th>Процессор</th><td>@pc.Processor</td></tr>
+    <tr><th>Оперативная память</th><td>@pc.RamGb ГБ</td></tr>
+    <tr><th>Видеокарта</th><td>@pc.VideoCard</td></tr>
+    <tr>
+        <th>Накопители</th>
+        <td>
+            @foreach (var storage in pc.Storages)
+            {
+                <div>@storage</div>
+            }
+            Всего: @pc.TotalStorageGb ГБ
+        </td>
+    </tr>
+    <tr><th>Операционная система</th><td>@pc.OperatingSystem</td></tr>
+    <tr>
+        <th>Состояние</th>
+        <td>
+            @if (pc.State == PowerState.On)
+            {
+                <span class="text-success">Включён</span>
+            }
+            else
+            {
+                <span class="text-danger">Выключен</span>
+            }
+        </td>
+    </tr>
+</table>
+
+<h2>Виды рабочих машин</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Вид</th>
+        <th>Имя</th>
+        <th>Назначение</th>
+        <th>Процессор</th>
+        <th>ОЗУ</th>
+        <th>Состояние</th>
+    </tr>
+    @foreach (var machine in Model.Machines)
+    {
+        <tr>
+            <td>@machine.MachineType</td>
+            <td>@machine.Name</td>
+            <td>@machine.Purpose</td>
+            <td>@machine.Processor</td>
+            <td>@machine.RamGb ГБ</td>
+            <td>@(machine.State == PowerState.On ? "Включена" : "Выключена")</td>
+        </tr>
+    }
+</table>
+
+<h2>Журнал</h2>
+<ul>
+    @foreach (var message in Model.Messages)
+    {
+        <li>@message</li>
+    }
+</ul>
