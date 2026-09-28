@@ -7,7 +7,7 @@ namespace YADLAB.Pages
 {
     public class IndexModel : PageModel
     {
-        public PersonalComputer Computer { get; set; } = null;
+        public PersonalComputer Computer { get; set; } = null!;
         public List<string> Messages { get; set; } = new();
         public List<WorkMachine> Machines { get; set; } = new();
 
